@@ -25,6 +25,7 @@ function Remember(path) {
 /**
  * 
  * @param {object} obj - of the dree childer array
+ * recursive function that searches directories
  * 
  *  
  */
@@ -58,9 +59,10 @@ function explore(obj, callback) {
  * @returns [] of relativeFilepaths
  */
 function getExplored(path){
-    console.log
+    
     let subpath = startDigging(path)
     subpath.forEach(explore);
+    console
     return nestMap
 
 }
