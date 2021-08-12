@@ -7,7 +7,7 @@ const path = require('path')
  * 
  * @param {*} path of a the Nest Folder
  * 
- * @returns {} an array of the 1st childer ./path [ dir1 , dir2] 
+ * @returns [] an array of the 1st childer ./path [ dir1 , dir2] 
  */
 const startDigging = (path) => {
 
@@ -50,6 +50,16 @@ function explore(obj, callback) {
 
     }
 
+
+}
+function explored(path){
+    let subpath = startDigging(path)
+    subpath.forEach(explore)
+
+  
+
+  //console.log(fileRabit.getTempalateFileList);
+  let list = fileRabit.getRabitholeRoute
 
 }
 
@@ -101,6 +111,8 @@ exports.startDigging = startDigging;
 
 //exports.recurisive_dis = explore;
 exports.explore = explore;
+
+exports.exploreNest= explored
 
 
 exports.createFileFromRelativePath = createFileFromRelativePath;
