@@ -38,5 +38,8 @@ Desined with rapid templating for magento in mind
 
 ## To use just do  
 
-``` js 
-let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); ```
+```npm install --save https://github.com/IasonArgyrakis/fileRabit.git ```
+
+``` js
+let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); 
+```
