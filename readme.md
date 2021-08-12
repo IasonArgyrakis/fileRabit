@@ -5,7 +5,7 @@ Desined with rapid templating for magento in mind
 
 ![example_dir](example_Dir_of_magento.png)
 
-results in
+### results in
 
 ```
 [ 'Block/Adminhtml/Items/Edit/Form.php',
