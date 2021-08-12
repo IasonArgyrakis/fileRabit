@@ -2,6 +2,7 @@
 const dree = require('dree');
 const fs = require('fs');
 const path = require('path')
+const Templates = require('handlebars')
 
 /**
  * 
@@ -74,7 +75,7 @@ function getExplored(path){
  * @param {string} RelativePath 
  * @param {string} cmd_location location of the script 
  */
-function createFileFromRelativePath(RelativePath, cmd_location) {
+function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
     RelativePath_Arr = RelativePath.split("/");
@@ -102,8 +103,9 @@ function createFileFromRelativePath(RelativePath, cmd_location) {
             console.log('Saved file under:')
             console.log(newDirPath)
             let TempalteLocation = newDirPath.substring(1, newDirPath.length);
-            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/Plugin/MG_CLI/plug-in-name/" + TempalteLocation)).toString('utf8')
-            fs.writeFileSync(newDirPath, tempalteFileContent, function (err) {
+            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/Plugin/MG_CLI/plug-in-name/" + TempalteLocation)).toString('utf8');
+            let replaceValues=Templates.compile(tempalteFileContent)
+            fs.writeFileSync(newDirPath, replaceValues, function (err) {
                 if (err) throw err;
                 console.log('Done');
             });
