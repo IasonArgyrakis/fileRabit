@@ -5,7 +5,7 @@ Desined with rapid templating for magento in mind
 
 ![example_dir](example_Dir_of_magento.png)
 
-### results in
+### Results in
 
 ```
 [ 'Block/Adminhtml/Items/Edit/Form.php',
@@ -34,3 +34,8 @@ Desined with rapid templating for magento in mind
   'view/adminhtml/layout/a_co_name_z_a_ext_name_z_items_index.xml' ]
 
 ```
+---
+
+##To use just do  
+
+``` let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); ```
