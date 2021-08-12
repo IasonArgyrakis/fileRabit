@@ -7,8 +7,7 @@ Desined with rapid templating for magento in mind
 
 results in
 
-`
-
+```
 [ 'Block/Adminhtml/Items/Edit/Form.php',
   'Block/Adminhtml/Items/Edit/Tab/Main.php',
   'Block/Adminhtml/Items/Edit/Tabs.php',
@@ -34,5 +33,4 @@ results in
   'view/adminhtml/layout/a_co_name_z_a_ext_name_z_items_edit.xml',
   'view/adminhtml/layout/a_co_name_z_a_ext_name_z_items_index.xml' ]
 
-
-`
+```
