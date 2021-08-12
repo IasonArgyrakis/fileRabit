@@ -104,7 +104,7 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
             console.log(newDirPath)
             let TempalteLocation = newDirPath.substring(1, newDirPath.length);
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/Plugin/MG_CLI/plug-in-name/" + TempalteLocation)).toString('utf8');
-            let replaceValues=Templates.compile(tempalteFileContent)
+            let replaceValues=tempalteFileContent.compile(arguments)
             fs.writeFileSync(newDirPath, replaceValues, function (err) {
                 if (err) throw err;
                 console.log('Done');
