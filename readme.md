@@ -3,7 +3,7 @@
 A simple node module to search a directory and return all the file names relative to the folder specifed
 Desined with rapid templating for magento in mind
 
-![example_dir](example_Dir.png)
+![example_dir](example_Dir_of magento.png)
 
 results in
 
