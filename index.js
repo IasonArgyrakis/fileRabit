@@ -73,6 +73,7 @@ function getExplored(path){
 /**
  * 
  * @param {string} RelativePath 
+ * @param {object} for handlebars
  * @param {string} cmd_location location of the script 
  */
 function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
@@ -106,7 +107,7 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/Plugin/MG_CLI/plug-in-name/" + TempalteLocation)).toString('utf8');
             let template=Handlebars.compile(tempalteFileContent);
             
-            fs.writeFileSync(newDirPath, template.compile(arguments), function (err) {
+            fs.writeFileSync(newDirPath, template(arguments), function (err) {
                 if (err) throw err;
                 console.log('Done');
             });
