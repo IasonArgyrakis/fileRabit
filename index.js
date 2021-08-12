@@ -58,9 +58,10 @@ function explore(obj, callback) {
  * @returns [] of relativeFilepaths
  */
 function getExplored(path){
+    console.log
     let subpath = startDigging(path)
     subpath.forEach(explore);
-    return this.nestMap
+    return nestMap
 
 }
 
