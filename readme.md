@@ -38,4 +38,5 @@ Desined with rapid templating for magento in mind
 
 ## To use just do  
 
-``` let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); ```
+``` js 
+let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); ```
