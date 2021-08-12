@@ -52,14 +52,15 @@ function explore(obj, callback) {
 
 
 }
-function explored(path){
+/**
+ * 
+ * @param {*} path 
+ * @returns [] of relativeFilepaths
+ */
+function getExplored(path){
     let subpath = startDigging(path)
-    subpath.forEach(explore)
-
-  
-
-  //console.log(fileRabit.getTempalateFileList);
-  let list = fileRabit.getRabitholeRoute
+    subpath.forEach(explore);
+    return this.nestMap
 
 }
 
@@ -109,10 +110,9 @@ function createFileFromRelativePath(RelativePath, cmd_location) {
 //exports.getfolderDirectories = startDigging;
 exports.startDigging = startDigging;
 
-//exports.recurisive_dis = explore;
 exports.explore = explore;
 
-exports.exploreNest= explored
+exports.exploreNest= getExplored
 
 
 exports.createFileFromRelativePath = createFileFromRelativePath;
