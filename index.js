@@ -16,7 +16,9 @@ const startDigging = (path) => {
 
 }
 
+// this might cause an issue 
 var nestMap = []
+
 
 function Remember(path) {
     //Remeber the way back
