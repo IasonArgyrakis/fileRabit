@@ -45,3 +45,12 @@ Desined with rapid templating for magento in mind
 ``` js
 let file_list=fileRabit.exploreNest(__dirname + "/Templates/Plugin/MG_CLI/plug-in-name/"); 
 ```
+
+
+
+---
+
+### Thanx
+
+I would like to thank D.Vakerlis for the chance and the work-ethic he instilled in me
+
