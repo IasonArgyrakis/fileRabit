@@ -104,12 +104,12 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
             console.log('Saved file under:')
             console.log(newDirPath)
             let TempalteLocation = newDirPath.substring(1, newDirPath.length);
-            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/Plugin/MG_CLI/plug-in-name/" + TempalteLocation)).toString('utf8');
+            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/" + TempalteLocation)).toString('utf8');
             let template=Handlebars.compile(tempalteFileContent);
             
             fs.writeFileSync(newDirPath, template(arguments), function (err) {
                 if (err) throw err;
-                console.log('Done');
+                console.log('Done') ;
             });
         }
 
