@@ -2,7 +2,8 @@
 const dree = require('dree');
 const fs = require('fs');
 const path = require('path')
-const Handlebars = require('handlebars')
+const Handlebars = require('handlebars');
+
 
 /**
  * 
@@ -99,21 +100,42 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
                 }
 
             });
-        } else {
-            newDirPath += RelativePath_Arr[i]
-            console.log('Saved file under:')
-            console.log(newDirPath)
-            let TempalteLocation = newDirPath.substring(1, newDirPath.length);
-            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + "/Templates/" + TempalteLocation)).toString('utf8');
-            let template=Handlebars.compile(tempalteFileContent);
-            
-            fs.writeFileSync(newDirPath, template(arguments), function (err) {
-                if (err) throw err;
-                console.log('Done') ;
-            });
-        }
-
+        
+        
     }
+
+        else{
+            newfilepath=newDirPath
+            newDirPath+=RelativePath_Arr[i];//index.php
+            let file={
+                name:RelativePath_Arr[i].split(".")[0],
+                encoding:"."+RelativePath_Arr[i].split(".")[1]
+                }
+             
+            newFileName=arguments.blockclass
+            newfilepath+=newFileName+file.encoding
+
+            let TempalteLocation = newDirPath.substring(1, newDirPath.length);
+            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
+            let template=Handlebars.compile(tempalteFileContent);
+            try{
+                if (fs.existsSync(newfilepath)) {
+                    console.log("FILE - EXISTS")
+                }
+                else{
+                    fs.writeFileSync(newfilepath, template(arguments), function (err) {
+                        if (err) throw err;
+                        console.log('Done');
+                    });
+                }
+            }
+            catch(err){
+                console.log(err);
+            }
+        
+
+        }
+}
 }
 
 //exports.getfolderDirectories = startDigging;
