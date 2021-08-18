@@ -4,13 +4,14 @@ const fs = require('fs');
 const path = require('path')
 const Handlebars = require('handlebars');
 
-Handlebars.registerHelper('toLowerCase', function(str) {
-    return str.toLowerCase();
-  });
-
-Handlebars.registerHelper('FirstLetterCapital',  function (string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  });
+Handlebars.registerHelper('toLowerCase', function(string) {
+       
+        return  string.toString.toLowerCase;
+      });
+    
+    Handlebars.registerHelper('FirstLetterCapital',  function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      });
 
 
 
@@ -88,18 +89,19 @@ function getExplored(path){
  * @param {string} cmd_location location of the script 
  */
 function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
+    
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
-    RelativePath_Arr = RelativePath.split("/");
+    let RelativePath_Arr = RelativePath.split("/");
     //console.log("...")
-    console.log(RelativePath_Arr)
+    //console.log(RelativePath_Arr)
 
     let newDirPath = './'
     //itterate throught the input 
     for (let i = 0; i < RelativePath_Arr.length; i++) {
-        //console.log(RelativePath_Arr[i]);
+        console.log(RelativePath_Arr[i]);
         //if it is a folder 
-        if (i < RelativePath_Arr.length - 1) {
+        if (i < RelativePath_Arr.length-1  ) {
 
             newDirPath += RelativePath_Arr[i] + "/"
             //console.log('mkdir : "' + newDirPath + '"');
@@ -115,21 +117,28 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
      }
 
         else{
-            newfilepath=newDirPath
+            console.log(arguments)
+            
+            let newfilepath=newDirPath
             newDirPath+=RelativePath_Arr[i];//index.php
             let file={
                 name:RelativePath_Arr[i].split(".")[0],
                 encoding:"."+RelativePath_Arr[i].split(".")[1]
                 }
              
+            if(arguments.blockclass!=undefined){
             newFileName=arguments.blockclass
-            newfilepath+=newFileName+file.encoding
+            newfilepath+=newFileName+file.encoding}
+            else{
+                newfilepath=RelativePath_Arr[i]
+            }
 
             let TempalteLocation = newDirPath.substring(1, newDirPath.length);
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
             
             let template=Handlebars.compile(tempalteFileContent);
             try{
+                console.log(newfilepath)
                 if (fs.existsSync(newfilepath)) {
                     console.log("FILE - EXISTS try a different name")
                 }
