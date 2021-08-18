@@ -4,6 +4,12 @@ const fs = require('fs');
 const path = require('path')
 const Handlebars = require('handlebars');
 
+Handlebars.registerHelper('toLowerCase', function(str) {
+    return str.toLowerCase();
+  });
+
+
+
 
 /**
  * 
@@ -117,6 +123,7 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
 
             let TempalteLocation = newDirPath.substring(1, newDirPath.length);
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
+            
             let template=Handlebars.compile(tempalteFileContent);
             try{
                 if (fs.existsSync(newfilepath)) {
