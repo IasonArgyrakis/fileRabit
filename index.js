@@ -120,7 +120,7 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
             let template=Handlebars.compile(tempalteFileContent);
             try{
                 if (fs.existsSync(newfilepath)) {
-                    console.log("FILE - EXISTS")
+                    console.log("FILE - EXISTS try a different name")
                 }
                 else{
                     fs.writeFileSync(newfilepath, template(arguments), function (err) {
