@@ -3,6 +3,7 @@ const dree = require('dree');
 const fs = require('fs');
 const path = require('path')
 const Handlebars = require('handlebars');
+const chalk = require('chalk');
 
 Handlebars.registerHelper('toLowerCase', function(string) {
        
@@ -99,12 +100,12 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
     let newDirPath = './'
     //itterate throught the input 
     for (let i = 0; i < RelativePath_Arr.length; i++) {
-        console.log(RelativePath_Arr[i]);
+        //console.log(RelativePath_Arr[i]);
         //if it is a folder 
         if (i < RelativePath_Arr.length-1  ) {
 
             newDirPath += RelativePath_Arr[i] + "/"
-            //console.log('mkdir : "' + newDirPath + '"');
+          
 
             fs.mkdir(path.join(process.env.PWD, newDirPath), { recursive: true }, (err) => {
                 if (err && err.errno == -17) {
@@ -117,7 +118,7 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
      }
 
         else{
-            console.log(arguments)
+           
             
             let newfilepath=newDirPath
             newDirPath+=RelativePath_Arr[i];//index.php
@@ -138,9 +139,12 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
             
             let template=Handlebars.compile(tempalteFileContent);
             try{
-                console.log(newfilepath)
+                
                 if (fs.existsSync(newfilepath)) {
-                    console.log("FILE - EXISTS try a different name")
+                    if(arguments.blockclass==undefined){
+                    console.log(chalk.red("FILE EXISTS \n If you are using --Register the file has been made"))
+                    }else {
+                    console.log(chalk.red("FILE EXISTS try a different name"))}
                 }
                 else{
                     fs.writeFileSync(newfilepath, template(arguments), function (err) {
