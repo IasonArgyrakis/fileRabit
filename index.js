@@ -142,9 +142,9 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
                 
                 if (fs.existsSync(newfilepath)) {
                     if(arguments.blockclass==undefined){
-                    console.log(chalk.red("FILE EXISTS \n If you are using --Register the file has been made"))
+                    console.log(chalk.red("FILE - EXISTS are you using --Register ??"))
                     }else {
-                    console.log(chalk.red("FILE EXISTS try a different name"))}
+                    console.log(chalk.red("FILE - EXISTS try a different name"))}
                 }
                 else{
                     fs.writeFileSync(newfilepath, template(arguments), function (err) {
@@ -154,7 +154,8 @@ function createFileFromRelativePath(RelativePath, arguments ,cmd_location ) {
                 }
             }
             catch(err){
-                console.log(err);
+                console.log("--",err);
+               
             }
         
 
