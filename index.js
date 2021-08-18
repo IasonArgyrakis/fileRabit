@@ -8,6 +8,10 @@ Handlebars.registerHelper('toLowerCase', function(str) {
     return str.toLowerCase();
   });
 
+Handlebars.registerHelper('Vendorsafe',  function (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
 
 
