@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path')
 const Handlebars = require('handlebars');
 const chalk = require('chalk');
+const { Console } = require('console');
 
 Handlebars.registerHelper('toLowerCase', function (string) {
 
@@ -90,21 +91,23 @@ function getExplored(path) {
  * @param {string} cmd_location location of the script 
  */
 function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
+    //var vars = { VendorName: "MGCLI", moduleName: "Json", blockextends: undefined, blockclass: undefined };
 
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
     let RelativePath_Arr = RelativePath.split("/");
     //console.log("...")
-    //console.log(RelativePath_Arr)
+    console.log(RelativePath_Arr)
 
     let newDirPath = ""
-    //itterate throught the input 
+    
     for (let i = 0; i < RelativePath_Arr.length; i++) {
-        //console.log(RelativePath_Arr[i]);
+       
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
 
             newDirPath += RelativePath_Arr[i] + "/"
+            console.log("made dir:"+newDirPath)
 
 
             fs.mkdir(path.join(process.env.PWD, newDirPath), { recursive: true }, (err) => {
@@ -119,39 +122,48 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
         else {
 
-
+                
             let newfilepath = newDirPath
-            newDirPath += RelativePath_Arr[i];//index.php
-            let file = {
-                name: RelativePath_Arr[i].split(".")[0],
-                encoding: "." + RelativePath_Arr[i].split(".")[1]
+            let originalFilePath = newDirPath + RelativePath_Arr[i];//index.php
+            let orginal=RelativePath_Arr[i].split(".")
+            
+            let file= {
+               
+                name: orginal[0],
+                encoding: "." +orginal[1]
+            }
+            if(arguments.keepOriginalName){
+                newFileName = file.name + file.encoding
+                
+
             }
 
             if (arguments.blockclass != undefined) {
-                newFileName = arguments.blockclass
-                newfilepath += newFileName + file.encoding
+                newFileName = arguments.blockclass + file.encoding
             }
-            
-            else {
-                newfilepath = RelativePath_Arr[i]
-            }
-            newDirPath = './' + newDirPath
 
-            let TempalteLocation = newDirPath.substring(1, newDirPath.length);
-            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
+            
+          
+           
+            newDirPath = './' + newfilepath+newFileName
+           
+
+          console.log(originalFilePath);
+         
+            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + originalFilePath)).toString('utf8');
 
             let template = Handlebars.compile(tempalteFileContent);
             try {
 
-                if (fs.existsSync(newfilepath)) {
+                if (fs.existsSync(newDirPath)) {
 
                     console.log(chalk.red("FILE - EXISTS try a different name"))
-                    console.log(chalk.yellow("Are you making this ? ->" + newfilepath));
+                    console.log(chalk.yellow("Are you making this ? ->" + newDirPath));
                     console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
-                    console.log(chalk.green(newfilepath));
-                    fs.writeFileSync(newfilepath, template(arguments), function (err) {
+                    console.log(chalk.green(newDirPath));
+                    fs.writeFileSync(newDirPath, template(arguments), function (err) {
                         if (err) throw err;
                         console.log('Done');
                     });
