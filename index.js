@@ -97,17 +97,17 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
     // the last element is the file  
     let RelativePath_Arr = RelativePath.split("/");
     //console.log("...")
-    console.log(RelativePath_Arr)
+    //console.log(RelativePath_Arr)
 
     let newDirPath = ""
-    
+
     for (let i = 0; i < RelativePath_Arr.length; i++) {
-       
+
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
 
             newDirPath += RelativePath_Arr[i] + "/"
-            console.log("made dir:"+newDirPath)
+            // console.log("made dir:" + newDirPath)
 
 
             fs.mkdir(path.join(process.env.PWD, newDirPath), { recursive: true }, (err) => {
@@ -122,22 +122,22 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
         else {
 
-                
+
             let newfilepath = newDirPath
             let originalFilePath = newDirPath + RelativePath_Arr[i];//index.php
-            let orginal=RelativePath_Arr[i].split(".")
-            
-            let file= {
-               
+            let orginal = RelativePath_Arr[i].split(".")
+
+            let file = {
+
                 name: orginal[0],
-                encoding: "." +orginal[1]
-                
+                encoding: "." + orginal[1]
+
             }
             newFileName = file.name + file.encoding
-            if(arguments.keepOriginalName){
+            if (arguments.keepOriginalName) {
                 newFileName = file.name + file.encoding
-                
-                
+
+
 
             }
 
@@ -145,28 +145,31 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                 newFileName = arguments.blockclass + file.encoding
             }
 
+
+
+
+            newDirPath = './' + newfilepath + newFileName
+            utfpathArr = newfilepath.split("/")
             
-          
-           
-            newDirPath = './' + newfilepath+newFileName
+            let safepath = ""
+            utfpathArr.forEach(element => safepath = path.join(safepath, element))
+            safepath = path.join(".",safepath, newFileName)
            
 
-          console.log(originalFilePath);
-         
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + originalFilePath)).toString('utf8');
 
             let template = Handlebars.compile(tempalteFileContent);
             try {
 
-                if (fs.existsSync(newDirPath)) {
+                if (fs.existsSync(safepath)) {
 
                     console.log(chalk.red("FILE - EXISTS try a different name"))
                     console.log(chalk.yellow("Are you making this ? ->" + newDirPath));
                     console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
-                    console.log(chalk.green(newDirPath));
-                    fs.writeFileSync(newDirPath, template(arguments), function (err) {
+                    console.log(chalk.green(safepath));
+                    fs.writeFileSync(safepath, template(arguments), function (err) {
                         if (err) throw err;
                         console.log('Done');
                     });
