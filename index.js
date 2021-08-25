@@ -167,7 +167,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
                     console.log(chalk.red("FILE - EXISTS try a different name"))
                     console.log(chalk.yellow("Are you making this ? ->" + newDirPath));
-                    console.log(chalk.blue("--END OF ERROR--"));
+                    //console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
                     console.log(chalk.green("Made --> ",safepath));
