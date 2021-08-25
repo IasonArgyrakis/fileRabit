@@ -8,7 +8,7 @@ const { Console } = require('console');
 
 Handlebars.registerHelper('toLowerCase', function (string) {
 
-    return string.toString.toLowerCase;
+    return string.toString().toLowerCase;
 });
 
 Handlebars.registerHelper('FirstLetterCapital', function (string) {
@@ -131,14 +131,17 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                
                 name: orginal[0],
                 encoding: "." +orginal[1]
+                
             }
+            newFileName = file.name + file.encoding
             if(arguments.keepOriginalName){
                 newFileName = file.name + file.encoding
+                
                 
 
             }
 
-            if (arguments.blockclass != undefined) {
+            if (arguments.blockclass != undefined && !arguments.keepOriginalName) {
                 newFileName = arguments.blockclass + file.encoding
             }
 
