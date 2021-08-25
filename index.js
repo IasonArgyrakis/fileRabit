@@ -99,20 +99,21 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
     //console.log("...")
     //console.log(RelativePath_Arr)
 
-    let newDirPath = ""
+    let newSafeDirsPath = ""
 
     for (let i = 0; i < RelativePath_Arr.length; i++) {
 
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
-
-            newDirPath = newDirPath+RelativePath_Arr[i]+"/"
+            newSafeDirsPath=path.join(newSafeDirsPath, RelativePath_Arr[i])
+            //newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
             
-            newSafeDirsPath=path.join(".",newDirPath, RelativePath_Arr[i])
+            
 
-
+            console.log(newSafeDirsPath)
             fs.mkdir(path.join(process.env.PWD, newSafeDirsPath), { recursive: true }, (err) => {
+                console.log(newSafeDirsPath)
                 if (err && err.errno == -17) {
                     return console.error("Skiped Folder Exists..." + newSafeDirsPath);
                 }
@@ -125,8 +126,8 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
         else {
 
 
-            let newfilepath = newDirPath
-            let originalFilePath = newDirPath + RelativePath_Arr[i];//index.php
+            let newfilepath = newSafeDirsPath
+            let originalFilePath = path.join(newSafeDirsPath , RelativePath_Arr[i]);//index.php
             let orginal = RelativePath_Arr[i].split(".")
 
             let file = {
@@ -150,12 +151,12 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
 
 
-            newDirPath = path.join(".",newfilepath, newFileName)
-            utfpathArr = newfilepath.split("/")
+            // newDirPath = path.join(".",newfilepath, newFileName)
+            // utfpathArr = newfilepath.split("/")
             
-            let safepath = ""
-            utfpathArr.forEach(element => safepath = path.join(safepath, element))
-            safepath = path.join(".",safepath, newFileName)
+            // let safepath = ""
+            // utfpathArr.forEach(element => safepath = path.join(safepath, element))
+            let safepath = path.join(".",newSafeDirsPath, newFileName)
            
 
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + originalFilePath)).toString('utf8');
@@ -166,7 +167,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                 if (fs.existsSync(safepath)) {
 
                     console.log(chalk.red("FILE - EXISTS try a different name"))
-                    console.log(chalk.yellow("Are you making this ? ->" + newDirPath));
+                    console.log(chalk.yellow("Are you making this ? ->" + safepath));
                     //console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
