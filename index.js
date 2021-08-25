@@ -105,14 +105,14 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
-            newSafeDirsPath=path.join(newSafeDirsPath, RelativePath_Arr[i])
+            newSafeDirsPath=path.resolve(newSafeDirsPath, RelativePath_Arr[i])
             //newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
             
             
 
             console.log(newSafeDirsPath)
-            fs.mkdir(path.join(process.env.PWD, newSafeDirsPath), { recursive: true }, (err) => {
+            fs.mkdir(path.resolve(process.env.PWD, newSafeDirsPath), { recursive: true }, (err) => {
                 console.log(newSafeDirsPath)
                 if (err && err.errno == -17) {
                     return console.error("Skiped Folder Exists..." + newSafeDirsPath);
@@ -127,7 +127,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
 
             let newfilepath = newSafeDirsPath
-            let originalFilePath = path.join(newSafeDirsPath , RelativePath_Arr[i]);//index.php
+            let originalFilePath = path.resolve(newSafeDirsPath , RelativePath_Arr[i]);//index.php
             let orginal = RelativePath_Arr[i].split(".")
 
             let file = {
@@ -151,12 +151,12 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
 
 
-            // newDirPath = path.join(".",newfilepath, newFileName)
+            // newDirPath = path.resolve(".",newfilepath, newFileName)
             // utfpathArr = newfilepath.split("/")
             
             // let safepath = ""
-            // utfpathArr.forEach(element => safepath = path.join(safepath, element))
-            let safepath = path.join(".",newSafeDirsPath, newFileName)
+            // utfpathArr.forEach(element => safepath = path.resolve(safepath, element))
+            let safepath = path.resolve(".",newSafeDirsPath, newFileName)
            
 
             let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + originalFilePath)).toString('utf8');
@@ -171,7 +171,11 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                     //console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
-                    console.log(chalk.green("Made --> ",safepath));
+                    let extendNote=""
+                    if(arguments.blockextends!=undefined){
+                        extendNote=arguments.blockextends
+                    }
+                    console.log(chalk.green("Made --> ",safepath,extendNote));
                     fs.writeFileSync(safepath, template(arguments), function (err) {
                         if (err) throw err;
                         console.log('Done');
