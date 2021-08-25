@@ -106,11 +106,13 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
 
-            newDirPath += RelativePath_Arr[i] + "/"
+            newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
+            
+            newSafeDirsPath=path.join(".",newDirPath, RelativePath_Arr[i])
 
 
-            fs.mkdir(path.join(process.env.PWD, newDirPath), { recursive: true }, (err) => {
+            fs.mkdir(path.join(process.env.PWD, newSafeDirsPath), { recursive: true }, (err) => {
                 if (err && err.errno == -17) {
                     return console.error("Skiped Folder Exists..." + newDirPath);
                 }
@@ -148,7 +150,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
 
 
-            newDirPath = './' + newfilepath + newFileName
+            newDirPath = path.join(".",newfilepath, newFileName)
             utfpathArr = newfilepath.split("/")
             
             let safepath = ""
@@ -168,7 +170,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                     console.log(chalk.blue("--END OF ERROR--"));
                 }
                 else {
-                    console.log(chalk.green("Made-> "+safepath));
+                    console.log(chalk.green(safepath));
                     fs.writeFileSync(safepath, template(arguments), function (err) {
                         if (err) throw err;
                         console.log('Done');
