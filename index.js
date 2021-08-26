@@ -112,7 +112,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
             
 
             console.log(newSafeDirsPath)
-            fs.mkdir(path.resolve(process.env.PWD, newSafeDirsPath), { recursive: true }, (err) => {
+            fs.mkdir(path.resolve(arguments.cwd, newSafeDirsPath), { recursive: true }, (err) => {
                 console.log(newSafeDirsPath)
                 if (err && err.errno == -17) {
                     return console.error("Skiped Folder Exists..." + newSafeDirsPath);
