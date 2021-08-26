@@ -105,7 +105,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
         //if it is a folder 
         if (i < RelativePath_Arr.length - 1) {
-            newSafeDirsPath=path.resolve(newSafeDirsPath, RelativePath_Arr[i])
+            newSafeDirsPath=path.join(newSafeDirsPath, RelativePath_Arr[i])
             //newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
             
@@ -126,8 +126,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
         else {
 
 
-            let newfilepath = newSafeDirsPath
-            let originalFilePath = path.resolve(newSafeDirsPath , RelativePath_Arr[i]);//index.php
+            let originalFilePath = path.join(newSafeDirsPath , RelativePath_Arr[i]);//index.php
             let orginal = RelativePath_Arr[i].split(".")
 
             let file = {
@@ -137,6 +136,9 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
             }
             newFileName = file.name + file.encoding
+            if (arguments.blockclass != undefined) {
+                newFileName = arguments.blockclass + file.encoding
+            }
             if (arguments.keepOriginalName) {
                 newFileName = file.name + file.encoding
 
@@ -144,19 +146,19 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
             }
 
-            if (arguments.blockclass != undefined && !arguments.keepOriginalName) {
+            if (arguments.blockclass != undefined) {
                 newFileName = arguments.blockclass + file.encoding
             }
 
 
 
 
-            // newDirPath = path.resolve(".",newfilepath, newFileName)
+            // newDirPath = path.join(".",newfilepath, newFileName)
             // utfpathArr = newfilepath.split("/")
             
             // let safepath = ""
-            // utfpathArr.forEach(element => safepath = path.resolve(safepath, element))
-            let safepath = path.resolve(".",newSafeDirsPath, newFileName)
+            // utfpathArr.forEach(element => safepath = path.join(safepath, element))
+            let safepath = path.join(".",newSafeDirsPath, newFileName)
            
 
             let tempalteFileContent = fs.readFileSync(path.join(cmd_location + originalFilePath)).toString('utf8');
@@ -176,6 +178,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                         extendNote=arguments.blockextends
                     }
                     console.log(chalk.green("Made --> ",safepath,extendNote));
+                    console.log();
                     fs.writeFileSync(safepath, template(arguments), function (err) {
                         if (err) throw err;
                         console.log('Done');
@@ -186,33 +189,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                 console.log("--", err);
 
             }
-            // var TempalteLocation = realtivePath.substring(1, realtivePath.length);
-            // console.log(chalk.yellow("Using Template From:" + path.resolve(cmd_location + TempalteLocation)))
-            // let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
-
-            // let template = Handlebars.compile(tempalteFileContent);
-            // try {
-
-            //     if (fs.existsSync(newfilepath)) {
-
-            //         console.log(chalk.red("FILE - EXISTS try a different name"))
-            //         console.log(chalk.yellow("Are you making this ? ->" + newfilepath));
-            //         console.log(chalk.blue("--END OF ERROR--"));
-            //     }
-            //     else {
-            //         console.log(chalk.green(newfilepath));
-            //         fs.writeFileSync(newfilepath, template(arguments), function (err) {
-            //             if (err) throw err;
-            //             console.log('Done');
-            //         });
-            //     }
-            // }
-            // catch (err) {
-            //     console.log("--", err);
-
-            // }
-
-
+          
         }
     }
 }
