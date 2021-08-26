@@ -159,7 +159,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
             let safepath = path.resolve(".",newSafeDirsPath, newFileName)
            
 
-            let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + originalFilePath)).toString('utf8');
+            let tempalteFileContent = fs.readFileSync(path.join(cmd_location + originalFilePath)).toString('utf8');
 
             let template = Handlebars.compile(tempalteFileContent);
             try {
