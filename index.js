@@ -95,8 +95,12 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
-    let RelativePath_Arr = RelativePath.split("\\"); //windows
-    let RelativePath_Arr = RelativePath.split("/");// linux
+    let RelativePath_Arr = RelativePath.split("\\");
+    //windows
+    
+    //let RelativePath_Arr = RelativePath.split("/");
+    // linux
+    
     //console.log("...")
     //console.log(RelativePath_Arr)
 
@@ -189,34 +193,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
             catch (err) {
                 console.log("--", err);
 
-            }
-            // var TempalteLocation = realtivePath.substring(1, realtivePath.length);
-            // console.log(chalk.yellow("Using Template From:" + path.resolve(cmd_location + TempalteLocation)))
-            // let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
-
-            // let template = Handlebars.compile(tempalteFileContent);
-            // try {
-
-            //     if (fs.existsSync(newfilepath)) {
-
-            //         console.log(chalk.red("FILE - EXISTS try a different name"))
-            //         console.log(chalk.yellow("Are you making this ? ->" + newfilepath));
-            //         console.log(chalk.blue("--END OF ERROR--"));
-            //     }
-            //     else {
-            //         console.log(chalk.green(newfilepath));
-            //         fs.writeFileSync(newfilepath, template(arguments), function (err) {
-            //             if (err) throw err;
-            //             console.log('Done');
-            //         });
-            //     }
-            // }
-            // catch (err) {
-            //     console.log("--", err);
-
-            // }
-
-
+            }           
         }
     }
 }
