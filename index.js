@@ -97,7 +97,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
     // the last element is the file  
     let RelativePath_Arr = RelativePath.split("\\");
     //console.log("...")
-    //console.log(RelativePath_Arr)
+    console.log(RelativePath_Arr)
 
     let newSafeDirsPath = ""
 
