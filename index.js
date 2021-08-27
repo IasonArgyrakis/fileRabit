@@ -95,16 +95,17 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
-    let RelativePath_Arr = RelativePath.split("\\");
+    let RelativePath_Arr = RelativePath.split("\\"); //windows
+    let RelativePath_Arr = RelativePath.split("/");// linux
     //console.log("...")
-    console.log(RelativePath_Arr)
+    //console.log(RelativePath_Arr)
 
     let newSafeDirsPath = ""
 
     for (let i = 0; i < RelativePath_Arr.length; i++) {
 
         //if it is a folder 
-        if (i <= RelativePath_Arr.length - 1 &&  RelativePath_Arr.length > 1 ) {
+        if (i < RelativePath_Arr.length - 1 && RelativePath_Arr.length > 1) {
             newSafeDirsPath=path.join(newSafeDirsPath, RelativePath_Arr[i])
             //newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
@@ -112,7 +113,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
             
 
             console.log(newSafeDirsPath)
-            fs.mkdir(path.resolve(arguments.cwd, newSafeDirsPath), { recursive: true }, (err) => {
+            fs.mkdir(path.join(arguments.cwd, newSafeDirsPath), { recursive: true }, (err) => {
                 console.log(newSafeDirsPath)
                 if (err && err.errno == -17) {
                     return console.error("Skiped Folder Exists..." + newSafeDirsPath);
@@ -189,7 +190,33 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
                 console.log("--", err);
 
             }
-          
+            // var TempalteLocation = realtivePath.substring(1, realtivePath.length);
+            // console.log(chalk.yellow("Using Template From:" + path.resolve(cmd_location + TempalteLocation)))
+            // let tempalteFileContent = fs.readFileSync(path.resolve(cmd_location + TempalteLocation)).toString('utf8');
+
+            // let template = Handlebars.compile(tempalteFileContent);
+            // try {
+
+            //     if (fs.existsSync(newfilepath)) {
+
+            //         console.log(chalk.red("FILE - EXISTS try a different name"))
+            //         console.log(chalk.yellow("Are you making this ? ->" + newfilepath));
+            //         console.log(chalk.blue("--END OF ERROR--"));
+            //     }
+            //     else {
+            //         console.log(chalk.green(newfilepath));
+            //         fs.writeFileSync(newfilepath, template(arguments), function (err) {
+            //             if (err) throw err;
+            //             console.log('Done');
+            //         });
+            //     }
+            // }
+            // catch (err) {
+            //     console.log("--", err);
+
+            // }
+
+
         }
     }
 }
