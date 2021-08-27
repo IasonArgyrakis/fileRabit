@@ -95,7 +95,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
 
     //Spit what by '/' what are folders and what are files
     // the last element is the file  
-    let RelativePath_Arr = RelativePath.split("/");
+    let RelativePath_Arr = RelativePath.split("\\");
     //console.log("...")
     //console.log(RelativePath_Arr)
 
@@ -104,7 +104,7 @@ function createFileFromRelativePath(RelativePath, arguments, cmd_location) {
     for (let i = 0; i < RelativePath_Arr.length; i++) {
 
         //if it is a folder 
-        if (i < RelativePath_Arr.length - 1) {
+        if (i <= RelativePath_Arr.length - 1 &&  RelativePath_Arr.length > 1 ) {
             newSafeDirsPath=path.join(newSafeDirsPath, RelativePath_Arr[i])
             //newDirPath = newDirPath+RelativePath_Arr[i]+"/"
             // console.log("made dir:" + newDirPath)
